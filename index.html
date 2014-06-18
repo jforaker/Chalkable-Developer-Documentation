@@ -116,10 +116,11 @@ and deeply integrate into the core Chalkable experience. Using the API, your app
 <h2 id="authentication">Authentication</h2>
 <p>Chalkable’s API uses the OAuth 2.0 protocol for simple, but effective authentication and authorization.
 OAuth 2.0 is much easier to use than previous schemes; developers can start using the Chalkable API immediately.
-The one thing to keep in mind is that all requests to the API must be made over SSL (https:// not http://)</p>
+The one thing to keep in mind is that <strong>all requests to the API must be made over SSL (https:// not http://)</strong></p>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="access-authorization-and-control">Access Authorization and Control&nbsp;<a href="#access-authorization-and-control"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Access and Control of Chalkable API OAuth token.</p>
-<h4 id="access-authorization-and-control-authorization">Authorization&nbsp;<a href="#access-authorization-and-control-authorization"><i class="fa fa-link"></i></a></h4><p>Authorization Resource represents an authorization granted to the user. You can <strong>only</strong> access your own authorization, and only through <strong>Basic Authentication</strong>.</p>
-<p>The Authorization Resource has the following attribute:</p>
+<h4 id="access-authorization-and-control-authorization">Authorization&nbsp;<a href="#access-authorization-and-control-authorization"><i class="fa fa-link"></i></a></h4><p>Authorization Resource represents an authorization granted to the user.
+You can <strong>only</strong> access your own authorization, and only through our <strong>Oath Authentication</strong> implementation.</p>
+<p>The Authorization Resource has the following attributes:</p>
 <ul>
 <li>token_type</li>
 <li>access_token</li>
@@ -127,11 +128,12 @@ The one thing to keep in mind is that all requests to the API must be made over 
 <li>refresh_token</li>
 <li>scope</li>
 </ul>
-<p>Where <em>access_token</em> represents an OAuth token and <em>scope</em> is the scope granted for the given authorization. At this moment the only available scope is <code>https://www.chalkable.com/</code>.</p>
+<p>Where <em>access_token</em> represents an OAuth token and <em>scope</em> is the scope granted for the given authorization.
+At this moment the only available scope is <code>https://www.chalkable.com/</code>.</p>
 <p><strong>Note:</strong> you must make a POST request to our authorization server at:</p>
 <pre><code class="lang-no-highlight">https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13
 </code></pre>
-<p><strong>Also:</strong> note that both “client_id” AND “redirect_uri” must match the application URL you provided in the Developer Portal.</p>
+<p><strong>Also:</strong> note that both “client_id” AND “redirect_uri” must precisely match the application URL you provided in the Developer Portal.</p>
 <section id="access-authorization-and-control-authorization-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create Authorization</span></div><div style="float:left"><a href="#access-authorization-and-control-authorization-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#884cc3f65632717d06ff044d979f025b" class="pull-right">Toggle</a></li><li id="884cc3f65632717d06ff044d979f025b" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
     <span class="hljs-string">"client_id"</span> = [Your App <span class="hljs-built_in">URL</span>] asdf
     <span class="hljs-string">"client_secret"</span> = [Your API key]
