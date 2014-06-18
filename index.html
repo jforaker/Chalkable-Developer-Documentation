@@ -95,7 +95,7 @@ a.list-group-item.heading {
     min-width: 212px;
   }
 }
-</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a href="#access-authorization-and-control" class="list-group-item heading">Access Authorization and Control</a><a href="#access-authorization-and-control-authorization" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Authorization</a></div><div class="list-group"><a href="#person" class="list-group-item heading">Person</a><a href="#person-person" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Person</a></div><div class="list-group"><a href="#announcement" class="list-group-item heading">Announcement</a><a href="#announcement-announcement" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Announcement</a></div><div class="list-group"><a href="#class" class="list-group-item heading">Class</a><a href="#class-class" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Class</a></div><div class="list-group"><a href="#javascript" class="list-group-item heading">Javascript</a></div><p style="text-align: center"><a href="https://chalkable.com">https://chalkable.com</a></p></nav></div><div class="col-md-9"><div><header><div class="page-header"><h1 id="top">Chalkable API Documentation</h1></div></header><div class="description"><p>This guide describes integrating your web app for use within Chalkable. Your app will be displayed within an iframe
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a href="#access-authorization-and-control" class="list-group-item heading">Access Authorization and Control</a><a href="#access-authorization-and-control-authorization" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Authorization</a></div><div class="list-group"><a href="#using-the-chalkable-api" class="list-group-item heading">Using the Chalkable API</a></div><div class="list-group"><a href="#person" class="list-group-item heading">Person</a><a href="#person-person" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Person</a></div><div class="list-group"><a href="#announcement" class="list-group-item heading">Announcement</a><a href="#announcement-announcement" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Announcement</a></div><div class="list-group"><a href="#class" class="list-group-item heading">Class</a><a href="#class-class" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Class</a></div><div class="list-group"><a href="#javascript" class="list-group-item heading">Javascript</a></div><p style="text-align: center"><a href="https://chalkable.com">https://chalkable.com</a></p></nav></div><div class="col-md-9"><div><header><div class="page-header"><h1 id="top">Chalkable API Documentation</h1></div></header><div class="description"><p>This guide describes integrating your web app for use within Chalkable. Your app will be displayed within an iframe
  and should utilize platform data via the Chalkable API to provide a great experience.</p>
 <p>Integrating your web app with Chalkable gives you the opportunity to be listed in the Chalkable App Store, collect payments,
 and deeply integrate into the core Chalkable experience. Using the API, your app will be able to leverage the Chalkable platform
@@ -104,12 +104,9 @@ and deeply integrate into the core Chalkable experience. Using the API, your app
 <h1 id="guide-summary">Guide Summary</h1>
 <p>In this guide we will explain the following concepts:</p>
 <ul>
-<li>Submitting your app to the Chalkable App Store</li>
-<li>Chalkable iFrame</li>
-<li>Using your app: My Apps and New Item</li>
 <li>Authentication</li>
-<li>JavaScript Interaction</li>
-<li>Analytics and Payment</li>
+<li>Common methods</li>
+<li>JavaScript/iframe postMessage interaction</li>
 </ul>
 <h2 id="media-types">Media Types</h2>
 <p>Where applicable this API uses the JSON media-type to represent resources states and affordances.</p>
@@ -117,10 +114,9 @@ and deeply integrate into the core Chalkable experience. Using the API, your app
 <h2 id="error-states">Error States</h2>
 <p>The common <a href="https://github.com/for-GET/know-your-http-well/blob/master/status-codes.md">HTTP Response Status Codes</a> are used.</p>
 <h2 id="authentication">Authentication</h2>
-<p>The Chalkable API uses OAuth Authorization. First you create a new (or acquire existing) OAuth token using Basic Authentication. After you have acquired your token you can use it to access other resources within token’ scope.</p>
-<p>All requests must include your access token in the headers.</p>
-<pre><code class="lang-http"><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer: 5262d64b892e8d4341000001</span>
-</code></pre>
+<p>Chalkable’s API uses the OAuth 2.0 protocol for simple, but effective authentication and authorization.
+OAuth 2.0 is much easier to use than previous schemes; developers can start using the Chalkable API immediately.
+The one thing to keep in mind is that all requests to the API must be made over SSL (https:// not http://)</p>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="access-authorization-and-control">Access Authorization and Control&nbsp;<a href="#access-authorization-and-control"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Access and Control of Chalkable API OAuth token.</p>
 <h4 id="access-authorization-and-control-authorization">Authorization&nbsp;<a href="#access-authorization-and-control-authorization"><i class="fa fa-link"></i></a></h4><p>Authorization Resource represents an authorization granted to the user. You can <strong>only</strong> access your own authorization, and only through <strong>Basic Authentication</strong>.</p>
 <p>The Authorization Resource has the following attribute:</p>
@@ -136,12 +132,12 @@ and deeply integrate into the core Chalkable experience. Using the API, your app
 <pre><code class="lang-no-highlight">https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13
 </code></pre>
 <p><strong>Also:</strong> note that both “client_id” AND “redirect_uri” must match the application URL you provided in the Developer Portal.</p>
-<section id="access-authorization-and-control-authorization-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create Authorization</span></div><div style="float:left"><a href="#access-authorization-and-control-authorization-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#e0cea63a6efaee044322cf3b6660e5d7" class="pull-right">Toggle</a></li><li id="e0cea63a6efaee044322cf3b6660e5d7" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+<section id="access-authorization-and-control-authorization-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create Authorization</span></div><div style="float:left"><a href="#access-authorization-and-control-authorization-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#884cc3f65632717d06ff044d979f025b" class="pull-right">Toggle</a></li><li id="884cc3f65632717d06ff044d979f025b" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
     <span class="hljs-string">"client_id"</span> = [Your App <span class="hljs-built_in">URL</span>] asdf
     <span class="hljs-string">"client_secret"</span> = [Your API key]
     <span class="hljs-string">"scope"</span> = <span class="hljs-string">"https://chalkable.com"</span>
     <span class="hljs-string">"grant_type"</span> = <span class="hljs-string">"authorization_code"</span>
-    <span class="hljs-string">"code"</span> = [auth code retrieved <span class="hljs-built_in">from</span> <span class="hljs-operator">the</span> <span class="hljs-built_in">URL</span> <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> iframe <span class="hljs-operator">in</span> <span class="hljs-operator">the</span> context <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> Chalkable <span class="hljs-built_in">platform</span>]
+    <span class="hljs-string">"code"</span> = [auth code retrieved <span class="hljs-built_in">from</span> <span class="hljs-operator">the</span> <span class="hljs-string">"code"</span> <span class="hljs-built_in">param</span> <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> iframe <span class="hljs-built_in">URL</span> <span class="hljs-operator">in</span> <span class="hljs-operator">the</span> context <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> Chalkable <span class="hljs-built_in">platform</span>]
     <span class="hljs-string">"redirect_uri"</span> = [Your App <span class="hljs-built_in">URL</span>]
 }
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#364afef7cd9910135591bb8cea005dc7" class="pull-right">Toggle</a></li><li id="364afef7cd9910135591bb8cea005dc7" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
@@ -151,7 +147,13 @@ and deeply integrate into the core Chalkable experience. Using the API, your app
     "<span class="hljs-attribute">refresh_token</span>": <span class="hljs-value"><span class="hljs-string">"td+G+gWGeMJ1Z8Isn0lyRg=="</span></span>,
     "<span class="hljs-attribute">scope</span>": <span class="hljs-value"><span class="hljs-string">"https://www.chalkable.com/"</span>
 </span>}
-</code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="person">Person&nbsp;<a href="#person"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Get the currently logged in user.</p>
+</code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="using-the-chalkable-api">Using the Chalkable API&nbsp;<a href="#using-the-chalkable-api"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Below are some common methods used by Chalkable developers.
+You can see a full list of available methods inside the Chalkable Developer Portal. After you <a href="https://chalkable.com/Developer/Signup">sign up</a>,
+just click “API Explorer” to begin interacting with the API.</p>
+<p>All requests must include your access token in the headers.</p>
+<pre><code class="lang-http"><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer: 5262d64b892e8d4341000001</span>
+</code></pre>
+</div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="person">Person&nbsp;<a href="#person"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Get the currently logged in user.</p>
 <h4 id="person-person">Person&nbsp;<a href="#person-person"><i class="fa fa-link"></i></a></h4><section id="person-person-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Person</span></div><div style="float:left"><a href="#person-person-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/Person/Me.json</code></div></div><div class="panel-body"><p>No params required. Example:</p>
 </div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#779ad5fc0ad1673862b2a6db7cd724f7" class="pull-right">Toggle</a></li><li id="779ad5fc0ad1673862b2a6db7cd724f7" class="list-group-item panel-collapse collapse"><div class="description"></div><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer: QWxhZGRpbjpvcGVuIHNlc2FtZQ==</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#432c80c249fedd6cea615a9e0fe852a9" class="pull-right">Toggle</a></li><li id="432c80c249fedd6cea615a9e0fe852a9" class="list-group-item panel-collapse collapse"><div class="description"></div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">Content-Type: application/json; charset=utf-8</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">active</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
