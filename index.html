@@ -134,12 +134,12 @@ At this moment the only available scope is <code>https://www.chalkable.com/</cod
 <pre><code class="lang-no-highlight">https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13
 </code></pre>
 <p><strong>Also:</strong> note that both “client_id” AND “redirect_uri” must precisely match the application URL you provided in the Developer Portal.</p>
-<section id="access-authorization-and-control-authorization-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create Authorization</span></div><div style="float:left"><a href="#access-authorization-and-control-authorization-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#884cc3f65632717d06ff044d979f025b" class="pull-right">Toggle</a></li><li id="884cc3f65632717d06ff044d979f025b" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
-    <span class="hljs-string">"client_id"</span> = [Your App <span class="hljs-built_in">URL</span>] asdf
+<section id="access-authorization-and-control-authorization-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create Authorization</span></div><div style="float:left"><a href="#access-authorization-and-control-authorization-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#82085c5447016ea9f989d017e8b02faf" class="pull-right">Toggle</a></li><li id="82085c5447016ea9f989d017e8b02faf" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+    <span class="hljs-string">"client_id"</span> = [Your App <span class="hljs-built_in">URL</span>]
     <span class="hljs-string">"client_secret"</span> = [Your API key]
     <span class="hljs-string">"scope"</span> = <span class="hljs-string">"https://chalkable.com"</span>
     <span class="hljs-string">"grant_type"</span> = <span class="hljs-string">"authorization_code"</span>
-    <span class="hljs-string">"code"</span> = [auth code retrieved <span class="hljs-built_in">from</span> <span class="hljs-operator">the</span> <span class="hljs-string">"code"</span> <span class="hljs-built_in">param</span> <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> iframe <span class="hljs-built_in">URL</span> <span class="hljs-operator">in</span> <span class="hljs-operator">the</span> context <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> Chalkable <span class="hljs-built_in">platform</span>]
+    <span class="hljs-string">"code"</span> = [auth code retrieved <span class="hljs-built_in">from</span> <span class="hljs-operator">the</span> <span class="hljs-string">"code"</span> <span class="hljs-built_in">param</span> <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> iframe <span class="hljs-built_in">URL</span> <span class="hljs-operator">in</span> <span class="hljs-operator">the</span> Chalkable <span class="hljs-built_in">platform</span>]
     <span class="hljs-string">"redirect_uri"</span> = [Your App <span class="hljs-built_in">URL</span>]
 }
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#364afef7cd9910135591bb8cea005dc7" class="pull-right">Toggle</a></li><li id="364afef7cd9910135591bb8cea005dc7" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
@@ -149,9 +149,10 @@ At this moment the only available scope is <code>https://www.chalkable.com/</cod
     "<span class="hljs-attribute">refresh_token</span>": <span class="hljs-value"><span class="hljs-string">"td+G+gWGeMJ1Z8Isn0lyRg=="</span></span>,
     "<span class="hljs-attribute">scope</span>": <span class="hljs-value"><span class="hljs-string">"https://www.chalkable.com/"</span>
 </span>}
-</code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="using-the-chalkable-api">Using the Chalkable API&nbsp;<a href="#using-the-chalkable-api"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Below are some common methods used by Chalkable developers.
-You can see a full list of available methods inside the Chalkable Developer Portal. After you <a href="https://chalkable.com/Developer/Signup">sign up</a>,
-just click “API Explorer” to begin interacting with the API.</p>
+</code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="using-the-chalkable-api">Using the Chalkable API&nbsp;<a href="#using-the-chalkable-api"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>To get started, simply <a href="https://chalkable.com/Developer/Signup">sign up</a>.
+You will immediately gain access to the Developer Portal, where you will obtain an API key. Just provide a URL begin testing your app.</p>
+<p>Below are some common methods used by Chalkable developers.
+You can see a full list of available methods inside the Chalkable Developer Portal, via the “API Explorer” tab.</p>
 <p>All requests must include your access token in the headers.</p>
 <pre><code class="lang-http"><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer: 5262d64b892e8d4341000001</span>
 </code></pre>
@@ -1290,7 +1291,7 @@ This will let Chalkable know which function of yours to call.</li>
 
         //Should be called on app start to register a callback for attach and save buttons
 </code></pre>
-</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 18 Jun 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 19 Jun 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
